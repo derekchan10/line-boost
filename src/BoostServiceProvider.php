@@ -1,6 +1,6 @@
 <?php
 
-namespace T8891\Iris;
+namespace T8891\Boost;
 
 use Illuminate\Support\ServiceProvider;
 
