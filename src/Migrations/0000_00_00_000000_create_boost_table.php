@@ -13,15 +13,15 @@ class CreateBoostTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable(config('boost.table.boost'))) {
-            Schema::create(config('boost.table.boost'), function (Blueprint $table) {
+        if (!Schema::hasTable(config('boost.table.boost_list'))) {
+            Schema::create(config('boost.table.boost_list'), function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->charset = 'utf8';
                 $table->collation = 'utf8_unicode_ci';
                 $table->increments('id');
                 $table->string('compaign', 16);
                 $table->string('unique_id', 16);
-                $table->integer('line_id');
+                $table->integer('auth_id');
                 $table->tinyInteger('is_del');
                 $table->timestamp('add_time')->useCurrent();
             });

@@ -1,6 +1,6 @@
 <?php
 
-namespace T8891\Boost;
+namespace T8891\LineBoost;
 
 use Illuminate\Support\ServiceProvider;
 

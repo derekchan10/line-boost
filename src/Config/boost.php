@@ -2,7 +2,7 @@
 return [
     'route' => [
         // 路由命名空間
-        'namespace' => 'T8891\Boost\Controller',
+        'namespace' => 'T8891\LineBoost\Controller',
 
         // 路由中間件
         'middleware' => [],
@@ -12,7 +12,7 @@ return [
     ],
 
     'table' => [
-        'boost' => 't_boost_list',
+        'boost_list' => 't_boost_list',
         'sponsor_auth' => 't_boost_sponsor_auth',
         'user_auth' => 't_boost_user_auth',
     ],
