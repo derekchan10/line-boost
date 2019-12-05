@@ -49,7 +49,7 @@ class BoostApiFormat
             return;
         }
 
-        $keys = array_keys($data);
+        $keys = array_keys((array) $data);
         $formatKeys = array_map(function ($value) {
             $part = explode('_', $value);
             if (count($part) > 1) {

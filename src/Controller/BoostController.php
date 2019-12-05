@@ -89,7 +89,7 @@ class BoostController
 
         // 判斷是不是本人
         $sponsorAuthInfo = $this->sponsorAuth->getInfo($id);
-        if ($sponsorAuthInfo->line_id == $response['lineId']) {
+        if ($sponsorAuthInfo && $sponsorAuthInfo->line_id == $response['lineId']) {
             $response['isMe'] = 1;
         }
         
