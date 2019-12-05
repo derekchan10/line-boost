@@ -10,16 +10,16 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "T8891\\Boost\\": "src/"
+            "T8891\\LineBoost\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "T8891\\Boost\\BoostServiceProvider"
+                "T8891\\LineBoost\\BoostServiceProvider"
             ],
             "aliases": {
-                "Iris": "T8891\\Boost\\Facades\\Boost"
+                "LineBoost": "T8891\\LineBoost\\Facades\\LineBoost"
             }
         }
     }
