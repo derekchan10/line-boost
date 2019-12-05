@@ -85,7 +85,7 @@ class BoostController
         $response = $this->getUserAuth();
 
         $id = $request->get('id');
-        $response['id'] = $id;
+        $response['id'] = (string) $id;
 
         // 判斷是不是本人
         $sponsorAuthInfo = $this->sponsorAuth->getInfo($id);
