@@ -4,5 +4,5 @@ Route::group(['namespace' => config('boost.route.namespace'), 'middleware' => co
     Route::get('{compaign}/line/data', 'BoostController@lineData');
     Route::post('{compaign}/sponsor/auth', 'BoostController@sponsorAuth');
     Route::post('{compaign}/user/auth', 'BoostController@userAuth');
-    Route::get('{compaign}/boost', 'BoostController@boost');
+    Route::post('{compaign}/boost', 'BoostController@boost');
 });
