@@ -3,7 +3,7 @@ namespace T8891\LineBoost\Model;
 
 class BoostRepository extends BoostBase
 {
-    public function __construct(Boosts $model)
+    public function __construct(Boost $model)
     {
         $this->model = $model;
     }
@@ -17,7 +17,7 @@ class BoostRepository extends BoostBase
      */
     public function create($id, $authId)
     {
-        return $this->model->create([
+        return $this->model->insert([
             'unique_id' => (string) $id, 
             'auth_id' => (int) $authId, 
             'compaign' => $this->getCompaign()

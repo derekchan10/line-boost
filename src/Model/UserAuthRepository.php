@@ -62,6 +62,6 @@ class UserAuthRepository extends BoostBase
 
         $id = $this->model->insertGetId($insertData);
 
-        return $this->model->getInfo($id);
+        return $this->getInfo($id);
     }
 }

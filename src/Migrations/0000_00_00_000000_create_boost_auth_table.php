@@ -20,7 +20,6 @@ class CreateBoostAuthTable extends Migration
                 $table->collation = 'utf8_unicode_ci';
                 $table->increments('id');
                 $table->string('compaign', 16);
-                $table->string('unique_id', 16);
                 $table->string('line_id', 64);
                 $table->string('name', 32);
                 $table->string('headpic', 256);

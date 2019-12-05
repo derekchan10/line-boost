@@ -35,6 +35,13 @@ class BoostController
         $this->sponsorAuth = $sponsorAuth->setCompaign($this->compaign);
         $this->userAuth = $userAuth->setCompaign($this->compaign);
         $this->lineService = $lineService;
+
+        if (config('boost.exception_handle')) {
+            app()->singleton(
+                \Illuminate\Contracts\Debug\ExceptionHandler::class, 
+                \T8891\LineBoost\Exception\LineBoostExceptionHandler::class
+            );
+        }
     }
 
     /**
@@ -78,12 +85,14 @@ class BoostController
         $response = $this->getUserAuth();
 
         $id = $request->get('id');
+        $response['id'] = $id;
 
         // 判斷是不是本人
         $sponsorAuthInfo = $this->sponsorAuth->getInfo($id);
         if ($sponsorAuthInfo->line_id == $response['lineId']) {
             $response['isMe'] = 1;
         }
+        
 
         if ($this->boost->checkBoost($id, $response['authId'])) {
             $response['isBoost'] = 1;
@@ -143,17 +152,26 @@ class BoostController
         $id = $this->request->get('id');
         $authInfo = $this->auth();
 
-        $result = $this->sponsorAuth->getAuthInfo($authInfo->userId);
+        $result = $this->sponsorAuth->getInfo($id);
+        $lineAuthInfo = $this->sponsorAuth->getAuthInfo($authInfo->userId);
 
         // 判斷有無授權數據
-        if (!$result) {
-            // 沒有的話，直接插入
-            return $this->format($this->sponsorAuth->create($id, $authInfo));
-        }
-        
-        // 判斷是否是同個唯一ID
-        if ($result->unique_id != $id) {
-            return $this->except(config('boost.messages.line_unique'));
+        if ($result) {
+            // 判斷該頁面的授權是不是這個 Line 賬號
+            if ($result->line_id != $authInfo->userId) {
+                return $this->except(config('boost.messages.sponsor_auth_page_error'));
+            }
+
+            // 判斷 Line ID 有沒授權過其他頁面
+            if ($lineAuthInfo->unique_id != $id) {
+                return $this->except(config('boost.messages.sponsor_auth_line_error'));
+            }
+        } elseif ($lineAuthInfo) {
+            // 頁面沒有授權信息，Line賬號有授權信息，直接報錯
+            return $this->except(config('boost.messages.sponsor_auth_line_error'));
+        } else {
+            // 沒有的話，直接插入數據
+            $result = $this->sponsorAuth->create($id, $authInfo);
         }
 
         $response = $this->format($result);
@@ -234,7 +252,15 @@ class BoostController
      */
     private function getUserAuth()
     {
-        return $_SESSION[self::USER_AUTH_KEY];
+        return array_merge([
+            'id' => 0,
+            'authId' => 0,
+            'lineId' => '',
+            'name' => '',
+            'headpic' => '',
+            'isMe' => 0,
+            'isBoost' => 0,
+        ], (array) $_SESSION[self::USER_AUTH_KEY]);
     }
 
     /**
