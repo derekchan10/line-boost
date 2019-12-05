@@ -37,5 +37,10 @@ class BoostServiceProvider extends ServiceProvider
             __DIR__ . '/Config/boost.php',
             'boost'
         );
+
+        // 门面绑定
+        $this->app->singleton('LineBoost', function($app) {
+            return $this->app->make('T8891\LineBoost\LineBoostService');
+        });
     }
 }
