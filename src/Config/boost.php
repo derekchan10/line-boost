@@ -25,6 +25,7 @@ return [
         'boost_line_error' => 'Line 授權失敗！',
         'boost_success' => '助力成功！',
         'boost_failed' => '助力失敗！',
+        'boost_unique' => '您今天已助力過！',
         'sponsor_auth_page_error' => '該頁面已經授權過其他 Line 賬號！',
         'sponsor_auth_line_error' => 'Line 賬號已經授權過其他頁面！',
     ],

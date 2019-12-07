@@ -20,7 +20,7 @@ abstract class BoostBase
      */
     public function getModel()
     {
-        return $this->model->where('compaign', (string) $this->getCompaign());
+        return $this->model;
     }
 
     /**

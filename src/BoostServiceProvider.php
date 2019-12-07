@@ -2,10 +2,26 @@
 
 namespace T8891\LineBoost;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use T8891\LineBoost\Event\BoostLineData;
+use T8891\LineBoost\Event\BoostUserAuthFinish;
+use T8891\LineBoost\Event\BoostBefore;
+use T8891\LineBoost\Event\BoostSuccess;
 
 class BoostServiceProvider extends ServiceProvider
 {
+    /**
+     * The event listener mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [
+        BoostLineData::class => [],
+        BoostUserAuthFinish::class => [],
+        BoostBefore::class => [],
+        BoostSuccess::class => [],
+    ];
+
     /**
      * Bootstrap services.
      *
@@ -24,6 +40,8 @@ class BoostServiceProvider extends ServiceProvider
 
         // 註冊中間件
         $this->app['router']->aliasMiddleware('boostApiFormat', \T8891\LineBoost\Middleware\BoostApiFormat::class);
+
+        parent::boot();
     }
 
     /**

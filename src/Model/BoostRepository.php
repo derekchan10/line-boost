@@ -25,6 +25,17 @@ class BoostRepository extends BoostBase
     }
 
     /**
+     * Undocumented function
+     *
+     * @param string $id
+     * @return void
+     */
+    public function getTodayBoostNum($id)
+    {
+        return $this->getModel()->where('unique_id', (string) $id)->where('is_del', 0)->whereDate('add_time', date('Y-m-d'))->count();
+    }
+
+    /**
      * 檢測有無授權
      *
      * @param string $id
@@ -33,7 +44,22 @@ class BoostRepository extends BoostBase
      */
     public function checkBoost($id, $authId)
     {
-        return $this->getModel()->where('unique_id', (string) $id)->where('auth_id', (int) $authId)->count();
+        return $this->getModel()->where('unique_id', (string) $id)->where('auth_id', (int) $authId)->where('is_del', 0)->count();
+    }
+
+    /**
+     * 檢測今天有無助力
+     *
+     * @return void
+     */
+    public function checkTodayBoost($id, $authId)
+    {
+        return $this->getModel()
+            ->where('unique_id', (string) $id)
+            ->where('auth_id', (int) $authId)
+            ->whereDate('add_time', date('Y-m-d'))
+            ->where('is_del', 0)
+            ->count();
     }
 
     /**
@@ -62,6 +88,7 @@ class BoostRepository extends BoostBase
                 "lineId" => $value->auth->line_id,
                 "name" => $value->auth->name,
                 "headpic" => $value->auth->headpic,
+                "time" => $value->add_time,
             ];
         });
 

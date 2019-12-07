@@ -126,8 +126,8 @@ class BoostController
         $id = $this->request->get('id');
 
         $sponsorAuthInfo = $this->sponsorAuth->getInfo($id);
-
-        if ($sponsorAuthInfo->line_id == $result->line_id) {
+        
+        if (data_get($sponsorAuthInfo, 'line_id') == data_get($result, 'line_id')) {
             $response['isMe'] = 1;
         }
 
@@ -277,7 +277,9 @@ class BoostController
         }
 
         collect($eventResponse)->each(function ($value) use (&$response) {
-            $response = array_merge($response, $value);
+            if (is_array($value)) {
+                $response = array_merge($response, $value);
+            }
         });
 
         return $response;
