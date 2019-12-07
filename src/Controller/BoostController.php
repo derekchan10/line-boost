@@ -260,7 +260,7 @@ class BoostController
             'headpic' => '',
             'isMe' => 0,
             'isBoost' => 0,
-        ], (array) $_SESSION[self::USER_AUTH_KEY]);
+        ], (array) data_get($_SESSION, self::USER_AUTH_KEY));
     }
 
     /**

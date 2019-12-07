@@ -1,5 +1,5 @@
 {
-    "name": "t8891/line-boost",
+    "name": "t8891/boost",
     "description": "8891 boost component",
     "authors": [
         {
@@ -7,6 +7,7 @@
             "email": "dchan0831@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "psr-4": {

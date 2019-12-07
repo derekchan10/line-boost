@@ -20,7 +20,7 @@ class CreateBoostTable extends Migration
                 $table->collation = 'utf8_unicode_ci';
                 $table->increments('id');
                 $table->string('compaign', 16);
-                $table->string('unique_id', 16);
+                $table->string('unique_id', 32);
                 $table->integer('auth_id');
                 $table->tinyInteger('is_del');
                 $table->timestamp('add_time')->useCurrent();
